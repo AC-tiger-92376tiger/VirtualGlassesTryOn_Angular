@@ -4,12 +4,12 @@ import { Task } from '../../shared/models/task.model';
 import { SharedModule } from '../../shared/shared.module';
 
 @Component({
-  selector: 'app-task',
+  selector: 'app-setting',
   standalone: true,
   imports: [SharedModule],
-  templateUrl: './task.component.html'
+  templateUrl: './setting.component.html'
 })
-export class TaskComponent implements OnInit {
+export class SettingComponent implements OnInit {
   tasks: Task[] = [];
   newTask: Task = { title: '', description: '', status: 1};
   editingTask: Task | null = null;

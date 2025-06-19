@@ -52,7 +52,7 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
-        localStorage.setItem('loggedIn', JSON.stringify(res.loginuser));
+        //localStorage.setItem('loggedIn', JSON.stringify(res.loginuser));
 
         //this.loginuser = res.loginuser;
         //console.log(this.loginuser);
