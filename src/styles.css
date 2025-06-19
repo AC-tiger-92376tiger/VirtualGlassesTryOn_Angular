@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light mode styles */
+body {
+    background-color: #f7fafc; /* Light background */
+    color: #1a202c; /* Light text color */
+  }
+  
+  /* Dark mode styles */
+  body.dark {
+    background-color: #1a202c; /* Dark background */
+    color: #f7fafc; /* Light text color */
+  }
+  
+  header {
+    background-color: #ffffff; /* Light header background */
+  }
+  
+  body.dark header {
+    background-color: #2d3748; /* Dark header background */
+  }
+  
+  aside {
+    background-color: #ffffff; /* Light sidebar background */
+  }
+  
+  body.dark aside {
+    background-color: #2d3748; /* Dark sidebar background */
+  }
+  
+  
+  body.dark h1, 
+body.dark h2, 
+body.dark h3, 
+body.dark h4, 
+body.dark h5, 
+body.dark h6, 
+body.dark p, 
+body.dark span, 
+body.dark div, 
+body.dark a {
+  color: #f7fafc; /* Light text color for dark mode */
+}

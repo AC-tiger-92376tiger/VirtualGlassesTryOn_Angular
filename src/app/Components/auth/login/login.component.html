@@ -1,0 +1,51 @@
+
+  <!-- Top Section with Background Image -->
+  <div class="w-full h-[437px] bg-cover bg-center flex flex-col items-center "
+       style="background-image: url('assets/logo.png');">
+    
+      
+  </div>
+
+
+  <!-- Login Form -->
+  <div class="flex bg-gray-100 justify-center mt-12">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="w-full max-w-sm p-8 ">
+      <div class="relative">
+      <input type="email" formControlName="email" id="email" placeholder=" " required
+             class="peer w-full border border-gray-400 rounded-md px-4 pt-6 pb-2 text-lg text-black focus:outline-none focus:ring-2 focus:ring-purple-500" />
+      <label for="email"
+             class="absolute left-4 top-2 text-sm text-purple-700 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-2 peer-focus:text-sm peer-focus:text-purple-700">
+        Email
+      </label>
+    </div>
+
+      <!-- Password Field -->
+    <div class="relative mt-8">
+      <input type="password" formControlName="password" id="password" placeholder=" " required
+             class="peer w-full border border-gray-400 rounded-md px-4 pt-6 pb-2 text-lg text-black focus:outline-none focus:ring-2 focus:ring-purple-500" />
+      <label for="password"
+             class="absolute left-4 top-2 text-sm text-purple-700 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-2 peer-focus:text-sm peer-focus:text-purple-700">
+        Password
+      </label>
+    <!-- </div> -->
+    </div>
+    <!-- Sign In Button -->
+     <div class="flex flex-row justify-center">
+      <div class="flex justify-center pt-10">
+        <button type="submit"
+                class="bg-purple-600 text-white text-lg font-medium px-8 py-3 rounded-full hover:bg-purple-700 transition">
+          Sign In
+        </button>
+      </div>
+      <div class="flex justify-center pt-10 ml-5">
+        <button type="submit" (click)="register()"
+                class="bg-purple-600 text-white text-lg font-medium px-8 py-3 rounded-full hover:bg-purple-700 transition">
+          Sign Up
+        </button>
+      </div>
+     </div>
+    
+  </form>
+  
+  </div>
+

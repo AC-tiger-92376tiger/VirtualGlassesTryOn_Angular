@@ -1,0 +1,49 @@
+<main class="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <h2 class="text-2xl font-bold mb-6">Task Board</h2>
+  
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- To Do Column -->
+      <div  class="bg-white dark:bg-gray-800 rounded shadow p-4 flex flex-col">
+        <h3 class="text-lg font-semibold mb-4">📝 To Do</h3>
+  
+        <!-- Task Card -->
+        <div *ngFor="let task of ToDoTasks" class="bg-gray-50 dark:bg-gray-600 dark:border-gray-800 border rounded p-3 mb-3">
+          <h4 class="font-medium text-gray-900 dark:text-gray-100">{{task.title}}</h4>
+          <div class="text-sm dark:text-gray-400 text-gray-600">{{task.dueDate}}</div>
+          <div class="text-xs mt-1 text-gray-500 dark:text-gray-300">👤 {{task.username || 'Unknown'}} | {{task.priorityIcon}}{{task.priority}}</div>
+        </div>
+  
+        <button class="dark:text-blue-100 mt-auto text-blue-600 text-sm">+ Add Task</button>
+      </div>
+  
+      <!-- In Progress Column -->
+      <div  class="bg-white dark:bg-gray-800 rounded shadow p-4 flex flex-col">
+        <h3 class="text-lg font-semibold mb-4">🚧 In Progress</h3>
+  
+        <!-- Task Card -->
+        <div *ngFor="let task of InProgressTasks" class="bg-gray-50 dark:bg-gray-600 dark:border-gray-800 border rounded p-3 mb-3">
+          <h4 class="font-medium text-gray-900 dark:text-gray-100">{{task.title}}</h4>
+          <div class="text-sm dark:text-gray-400 text-gray-600">{{task.dueDate}}</div>
+          <div class="text-xs mt-1 text-gray-500 dark:text-gray-300">👤 {{task.username || 'Unknown'}} | {{task.priorityIcon}}{{task.priority}}</div>
+        </div>
+  
+        <button class="dark:text-blue-100 mt-auto text-blue-600 text-sm">+ Add Task</button>
+      </div>
+      
+      <!-- Done Column -->
+      <div  class="bg-white dark:bg-gray-800 rounded shadow p-4 flex flex-col">
+        <h3 class="text-lg font-semibold mb-4">✅ Done</h3>
+  
+        <!-- Task Card -->
+        <div *ngFor="let task of DoneTasks" class="bg-gray-50 dark:bg-gray-600 dark:border-gray-800 border rounded p-3 mb-3">
+          <h4 class="font-medium text-gray-900 dark:text-gray-100">{{task.title}}</h4>
+          <div class="text-sm dark:text-gray-400 text-gray-600 ">{{task.dueDate}}</div>
+          <div class="text-xs mt-1 text-gray-500 dark:text-gray-300">👤 {{task.username || 'Unknown'}} |  {{task.priorityIcon}}{{task.priority}}</div>
+        </div>
+  
+        <button class="dark:text-blue-100 mt-auto text-blue-600 text-sm">+ Add Task</button>
+      </div>
+      
+    </div>
+  </main>
+  
