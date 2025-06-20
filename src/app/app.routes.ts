@@ -4,6 +4,9 @@ import { RegisterComponent } from './Components/auth/register/register.component
 import { SettingComponent } from './Components/setting/setting.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { CustomerComponent } from './Components/customer/customer.component';
+import { ThreeDViewerComponent } from './three-dviewer/three-dviewer.component';
+import { CameraFaceDetectComponent } from './camera-detect-viewer/camera-detect-viewer.component';
+import { FaceOverlayComponent } from './face-overlay/face-overlay.component';
 
 export const routes: Routes = [
         { path: 'login', component: LoginComponent },
@@ -11,7 +14,9 @@ export const routes: Routes = [
         { path: 'setting-page', component: SettingComponent },
         { path: 'dashboard', component: DashboardComponent },
         { path: 'customer-page', component: CustomerComponent },
-        
+        { path: 'three', component: ThreeDViewerComponent},
+        { path: 'detect', component: CameraFaceDetectComponent},
+        { path: 'glass', component: FaceOverlayComponent},
         { path: '**', redirectTo: 'login' }
       
 ];
