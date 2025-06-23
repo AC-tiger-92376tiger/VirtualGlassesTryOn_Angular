@@ -12,12 +12,12 @@ export class AuthService {
 
   register(data: any): Observable<any> {
     //console.log(data);
-    return this.http.post(`${this.baseUrl}/signup`, data);
+    return this.http.post(`${this.baseUrl}/auth/signup`, data);
   }
 
   login(data: any): Observable<any> {
     console.log(data);
-    return this.http.post(`${this.baseUrl}/login`, data);
+    return this.http.post(`${this.baseUrl}/auth/login`, data);
   }
   //private loginuser: any = null;
 

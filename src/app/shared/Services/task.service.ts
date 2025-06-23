@@ -1,33 +1,38 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Task } from '../models/task.model';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../../envvironments/environment'; // Import environment
+//import { from } from 'rxjs';
+import { api } from '../axios';
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = 'http://localhost:5259/api/task';
-
+  private baseUrl = environment.baseUrl; 
+  //data: any;
+ 
+  async getGlassesList(): Promise<Task[]> {
+    try {
+      const response = await api.get('/glasses'); // GET http://192.168.6.206:8080/users
+      return response.data;
+    } catch (error) {
+      console.error('GET glasses failed', error);
+      throw error;
+    }
+  }
   constructor(private http: HttpClient) {}
+/*
+  getGlassesList(): void {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    //return this.http.get<Task[]>(`${this.baseUrl}/glasses`, { headers });
+    //from(api.get('/glasses'))
 
-  getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(this.apiUrl);
-  }
-
-  getTask(id: number): Observable<Task> {
-    return this.http.get<Task>(`${this.apiUrl}/${id}`);
-  }
-
-  createTask(task: Task): Observable<Task> {
-    return this.http.post<Task>(this.apiUrl, task);
-  }
-
-  updateTask(task: Task): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${task.id}`, task);
-  }
-
-  deleteTask(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
+    //api.get('/glasses').then(res => setGroups(res.data)).catch(() => setError('Failed to load groups'));
+  }*/
+  
 }

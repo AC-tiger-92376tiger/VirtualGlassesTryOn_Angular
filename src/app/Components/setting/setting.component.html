@@ -1,8 +1,13 @@
 
   <!-- Top Section with Background Image -->
   <div class="relative w-screen h-screen bg-cover bg-center "
-       style="background-image: url('assets/Settings.svg');">
-	   
+       >
+       <div class="absolute top-0 left-12 w-2/5 h-dvh">
+          <app-glasses-viewer [stated]="'3'" [glasses_list]="glasses_List"></app-glasses-viewer>
+        </div> 
+        <div class="absolute top-0 right-12 w-2/5 h-dvh">
+          <app-glasses-viewer [stated]="'2'" [glasses_list]="glasses_List"></app-glasses-viewer>
+        </div> 
   
   </div>
 
