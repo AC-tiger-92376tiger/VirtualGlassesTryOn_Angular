@@ -1,16 +1,72 @@
 
   <!-- Top Section with Background Image -->
-<div class="relative w-screen h-screen bg-cover bg-center "
-      >
+<div class="relative w-screen h-screen bg-cover bg-center ">
   <div class="absolute top-0 left-0 w-1/4 h-dvh">
-    <app-glasses-viewer [stated]="'1'" [glasses_list]="glasses_List" (selected_glasses)="onSelectGlasses($event)" ></app-glasses-viewer>
+    <app-glasses-viewer [stated]="'1'" [selected_ID]="selected_id" [glasses_list]="leftglasses_List" (selected_glasses)="onSelectGlasses($event)" ></app-glasses-viewer>
   </div>
   
-  <div class="absolute top-0 left-1/4 w-1/2 h-full bg-color-100">
-    <app-face-overlay [path]="selected_glasses" ></app-face-overlay>
+  <div class="absolute top-0 left-1/4 w-1/2 h-full bg-color-100 flex flex-col detect-area">
+    <div class="z-40 h-10">
+      
+      <div class="flex items-center gap-6">
+        <!-- Type Selector -->
+        <div class="flex items-center gap-2">
+          <label for="type" class="text-sm font-medium text-gray-700 whitespace-nowrap">Type:</label>
+          <select
+            
+            [(ngModel)]="selectedType"
+            (change)="onTypeChange($event)"
+            class="px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="" disabled>Select one</option>
+            <option *ngFor="let type of types" [value]="type">
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      
+        <!-- Path Input -->
+        <div class="flex items-center gap-2" *ngIf="selectedType === 'Video'">
+          <label class="text-sm font-medium text-gray-700 whitespace-nowrap">Path:</label>
+          <input type="file" accept="video/*" (change)="onVideoUploadafter($event)" />
+        </div>
+      
+        <div class="flex items-center gap-2" *ngIf="selectedType === 'Camera'">
+          <label class="text-sm font-medium text-gray-700 whitespace-nowrap">Camera:</label>
+          <select
+       
+            [(ngModel)]="media_path"
+            (change)="onCameraSelect($event)"
+
+            class=" gap-2 px-3 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="" disabled>Select one</option>
+            <option *ngFor="let cam of camera_list"  [value]="cam.deviceId">
+              {{ cam.label || 'Unnamed Camera' }}
+            </option>
+          </select>
+        </div>
+      
+        <div class="flex items-center gap-2" *ngIf="selectedType === 'Image'">
+          <label class="text-sm font-medium text-gray-700 whitespace-nowrap">Path:</label>
+          <input type="file" accept="image/*" (change)="onVideoUploadafter($event)" />
+        </div>      
+      </div>
+    
+  </div>
+  <div class="flex-1">
+    <app-face-overlay 
+  *ngIf="ShowView"
+  [mediaType]="selectedType"
+  [glassesModelUrl]="selected_glasses" 
+  [filepath]="media_path"
+  class="z-0 w-full h-full">
+</app-face-overlay>
+
+  </div>
   </div>
   <div class="absolute top-0 right-0 w-1/4 h-dvh">
-    <app-glasses-viewer [stated]="'1'"></app-glasses-viewer>
+    <app-glasses-viewer [stated]="'1'"  [selected_ID]="selected_id" [glasses_list]="rightglasses_List" (selected_glasses)="onSelectGlasses($event)"></app-glasses-viewer>
   </div>
 </div>
 

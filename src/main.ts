@@ -8,7 +8,8 @@ bootstrapApplication(AppComponent, {
   ...appConfig,
   providers: [
     provideHttpClient(), // Provide HttpClient service
-    ...(appConfig.providers || [])
+    ...(appConfig.providers || []),
+    
   ]
 }).catch((err) => console.error(err));
 

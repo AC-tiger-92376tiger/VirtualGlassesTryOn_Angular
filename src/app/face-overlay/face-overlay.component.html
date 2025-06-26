@@ -1,4 +1,4 @@
-<input type="file" accept="video/*" (change)="onVideoUpload($event)" />
-<video #video class="absolute top-0 left-0 w-full h-full object-cover" autoplay muted controls playsinline></video>
-<canvas #overlay class="" style="border: 2px solid red;" ></canvas>
-<canvas #threeCanvas class="" style="border: 4px solid blue;"></canvas>
+
+<video *ngIf="showVideo" #video class="z-0 w-full h-full" style="border: 2px solid red;" autoplay muted playsinline></video>
+<img #imageRef *ngIf="!showVideo" [src]="filepath" class="z-0 w-full h-full" style="border: 2px solid red;" alt="Face Image" (load)="onImageLoaded()" />
+<div #canvas class="relative overlay-canvas"  ></div>

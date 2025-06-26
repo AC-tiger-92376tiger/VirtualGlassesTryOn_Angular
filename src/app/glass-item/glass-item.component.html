@@ -1,4 +1,4 @@
-<div class="relative max-w-md mx-auto bg-blue-100 rounded-lg py-4 px-2 flex items-center justify-between space-x-2">
+<div class="relative max-w-md mx-auto bg-blue-100 rounded-lg py-2 px-2 flex items-center justify-between space-x-2">
     <!-- Glasses Image -->
     <div  *ngIf="state === '2'" class="flex-auto text-gray-500 cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-8 rotate-90" viewBox="0 0 40 24" fill="currentColor">
@@ -25,6 +25,7 @@
             class="inline-flex items-center">
             <input type="checkbox" 
                 (change)="onCheckboxChange($event)"
+                [(ngModel)]="checkedItem"
                 class="form-checkbox text-purple-600 w-4 h-4 rounded-md"  />
         </label>
         <span class="absolute text-sm bottom-0 right-5 text-[12px] text-gray-900">${{glasses.price}}</span>
@@ -47,3 +48,4 @@
           
       </div>
 </div>
+<hr class="border-gray-400 m-2">

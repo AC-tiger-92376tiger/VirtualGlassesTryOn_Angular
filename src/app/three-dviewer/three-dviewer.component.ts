@@ -4,6 +4,7 @@ import { GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Input } from '@angular/core';
+import { ApplicationRef } from '@angular/core';
 @Component({
   selector: 'app-glb-viewer',
   templateUrl: './three-dviewer.component.html',
@@ -12,15 +13,60 @@ import { Input } from '@angular/core';
 export class ThreeDViewerComponent implements AfterViewInit {
   @ViewChild('rendererContainer', { static: false }) rendererContainer!: ElementRef;
   @Input() src!: string;
-  ngAfterViewInit() {
+  renderer: THREE.WebGLRenderer | null=null;//({ antialias: true });
+  animationId: number | null = null;
+  constructor(private appRef: ApplicationRef) {}
+
+  ngOnInit(): void {
+    
+  }
+  private initialized = false;
+  ngAfterViewInit(): void {
+    this.appRef.isStable.subscribe((isStable) => {
+      if (isStable) {
+        if (!this.initialized) {
+          
+          this.init();
+          this.initialized = true;
+        }
+      }
+    });
+  }
+  ngOnDestroy() {
+    this.disposeRenderer();
+  }
+disposeRenderer() {
+  if (this.renderer) {
+    // Stop animation
+    if (this.animationId !== null) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
+
+    // Remove from DOM
+    const dom = this.renderer.domElement;
+    if (dom.parentElement) {
+      dom.parentElement.removeChild(dom);
+    }
+
+    // Dispose renderer
+    this.renderer.dispose();
+    this.renderer = null;
+  }
+}
+  init(){
+    if (this.renderer) {
+      this.disposeRenderer();
+    }
     const scene = new THREE.Scene();
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+
     const camera = new THREE.PerspectiveCamera(30, this.rendererContainer.nativeElement.clientWidth / this.rendererContainer.nativeElement.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setClearColor(0xf0f0f0); // Light gray background
+    this.renderer.setClearColor(0xf0f0f0); // Light gray background
 
-    renderer.setSize(this.rendererContainer.nativeElement.clientWidth, this.rendererContainer.nativeElement.clientHeight);
+    this.renderer.setSize(this.rendererContainer.nativeElement.clientWidth, this.rendererContainer.nativeElement.clientHeight);
 
-    this.rendererContainer.nativeElement.appendChild(renderer.domElement);
+    this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
 
     const light = new THREE.AmbientLight(0xffffff, 4);
     scene.add(light);
@@ -36,13 +82,14 @@ export class ThreeDViewerComponent implements AfterViewInit {
 
     camera.position.z = 0.3;
 
-    const controls = new OrbitControls(camera, renderer.domElement);
+    const controls = new OrbitControls(camera, this.renderer.domElement);
     controls.update();
 
     const animate = () => {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
+      this.renderer?.render(scene, camera);
+      this.animationId=requestAnimationFrame(animate);
     };
+    
 
     animate();
   }

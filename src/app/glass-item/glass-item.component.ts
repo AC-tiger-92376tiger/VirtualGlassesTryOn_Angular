@@ -3,6 +3,7 @@ import { ThreeDViewerComponent } from '../three-dviewer/three-dviewer.component'
 import { SharedModule } from '../shared/shared.module';
 import { Task } from '../shared/models/task.model';
 import { EventEmitter } from '@angular/core';
+import { SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-glass-item',
@@ -18,11 +19,24 @@ export class GlassItemComponent {
   //src ='';
   @Input() state!: string;
   @Input() glasses!: Task;
-  @Output() checkboxChanged = new EventEmitter<string>();
+  @Input() select_id!: number;
+  @Output() checkboxChanged = new EventEmitter<number>();
+  checkedItem=false;
 
   onCheckboxChange(event: Event) {
     const isChecked = (event.target as HTMLInputElement).checked;
+    this.checkedItem=isChecked;
     if(isChecked)
-      this.checkboxChanged.emit(this.glasses.path);
+      this.checkboxChanged.emit(this.glasses.id);
+  }
+  ngOnChanges(changes: SimpleChanges): void{
+    if (changes['select_id']) {
+    if(this.select_id!==this.glasses.id)
+    {
+      
+      this.checkedItem=false;
+    }
+     
+    }
   }
 }
