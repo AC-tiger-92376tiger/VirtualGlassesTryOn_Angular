@@ -1,11 +1,11 @@
 <!-- Top Section with Background Image -->
-  <div class="flex ">
+  <div class="flex h-screen w-screen ">
     <div class=" flex-auto">
       <div class="w-full h-full bg-cover bg-center items-center  "
        style="background-image: url('assets/logo.png');">
       </div>
     </div>
-  <div class="flex-none w-[540px] p-2">
+  <div class="flex-none w-[540px] mt-24">
     <!-- Login Form -->
     <div class="flex bg-gray-100 justify-center mt-8">
       <form [formGroup]="registerForm" (ngSubmit)="register()" class="w-full max-w-sm p-4 ">
@@ -17,6 +17,7 @@
           Email
         </label>
         </div>
+        <!--
       <div class="relative mt-5">
         <input type="fullname" formControlName="name" id="fullname" placeholder=" " required
               class="peer w-full border border-gray-400 rounded-md px-4 pt-6 pb-2 text-lg text-black focus:outline-none focus:ring-2 focus:ring-purple-500" />
@@ -33,7 +34,7 @@
           Phone Number
         </label>
       </div>
-
+-->
         <!-- Password Field -->
       <div class="relative mt-5">
         <input type="password" formControlName="password"password id="password" placeholder=" " required

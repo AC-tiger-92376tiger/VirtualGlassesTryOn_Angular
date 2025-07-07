@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.checkToken();    
+    //this.checkToken();    
   }
   ngAfterViewInit(): void {
     // Load the ChartComponent after ViewChild is initialized

@@ -50,7 +50,8 @@ export class CustomerComponent implements OnInit {
           "id":2,
           "title":"Coffee Glasses",
           "description":"Good Health",
-          "path":"glasses","price":120},
+          "path":"glasses",
+          "price":120},
         {
           "id":3,
           "title":"PLASTIC",
