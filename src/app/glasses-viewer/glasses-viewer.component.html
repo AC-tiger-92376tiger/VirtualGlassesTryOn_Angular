@@ -1,7 +1,7 @@
 <div class="h-full left-0 overflow-y-auto pr-0 scroll-container">
     <div *ngFor="let glasses of glasses_list" class="bg-blue-100 h-1/5 space-y-4 ">
         <!-- Item Card -->
-        <app-glass-item [state]="stated" [glasses]="glasses" [select_id]="selected_ID" (checkboxChanged)="onCheckboxChange($event)"></app-glass-item>
+        <app-glass-item [state]="stated" [glasses]="glasses"  (checkboxChanged)="onCheckboxChange($event)"></app-glass-item>
     </div>
 </div>
   

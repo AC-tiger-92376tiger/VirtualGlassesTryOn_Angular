@@ -14,7 +14,9 @@ import { SharedModule } from '../shared/shared.module';
 // import { HostListener } from '@angular/core';
 //import { any } from 'three/src/nodes/TSL.js';
 import { SimpleChanges } from '@angular/core';
-
+import { Store } from '@ngrx/store';
+import { SelectIdState } from '../store/select-id.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-face-overlay',
@@ -26,6 +28,8 @@ export class FaceOverlayComponent implements AfterViewInit {
   @ViewChild('video',  { static: false }) videoRef!: ElementRef<HTMLVideoElement>;
   @ViewChild('canvas',  { static: false }) canvasRef!: ElementRef<HTMLDivElement>;
   @ViewChild('imageRef',  { static: false }) imageRef!: ElementRef<HTMLImageElement>;
+  
+  selectId$: Observable<string | null>;
 
   scene!: THREE.Scene;
   camera!: THREE.PerspectiveCamera;
@@ -42,12 +46,29 @@ export class FaceOverlayComponent implements AfterViewInit {
   scene_width: number=0;
   scene_rate: number=1;
   //viewReady=false;
+  constructor(private store: Store<{ selectId: SelectIdState }>) {
+    this.selectId$ = this.store.select((state) => state.selectId.select_id);
+  }
   ngOnInit(): void {
-   this.showVideo=true;
+    this.showVideo=true;
+    this.selectId$.subscribe((modelpath) => {
+      
+      this.glassesModelUrl = modelpath!;
+      if (this.renderer?.domElement && this.canvasRef.nativeElement.contains(this.renderer.domElement)) {
+        this.canvasRef.nativeElement.removeChild(this.renderer.domElement);
+      }
+      if (this.mediaType === 'Image') {
+        this.onImageLoaded();
+      } else {
+        this.setupThree();
+        this.detectFace();
+      }
+    });
 }
 ngOnChanges(changes: SimpleChanges): void{
   
   this.showVideo=true;
+  
   if (this.renderer?.domElement && this.canvasRef.nativeElement.contains(this.renderer.domElement)) {
     this.canvasRef.nativeElement.removeChild(this.renderer.domElement);
   }
@@ -55,7 +76,7 @@ ngOnChanges(changes: SimpleChanges): void{
     
     this.initializeOverlay(); // Your logic here
   }else{
-
+/*
   if(changes['glassesModelUrl'])
   {
 
@@ -70,7 +91,7 @@ ngOnChanges(changes: SimpleChanges): void{
       this.detectFace();
     }
   
-  }
+  }*/
 }
 }
 async initializeOverlay(){
