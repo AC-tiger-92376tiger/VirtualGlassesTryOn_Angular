@@ -46,7 +46,9 @@
             </option>
           </select>
         </div>
-      
+        <div *ngIf="camera_list.length === 0">
+          <p>No cameras detected.</p>
+        </div>
         <div class="flex items-center gap-2" *ngIf="selectedType === 'Image'">
           <label class="text-sm font-medium text-gray-700 whitespace-nowrap">Path:</label>
           <input type="file" accept="image/*" (change)="onVideoUploadafter($event)" />

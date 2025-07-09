@@ -9,6 +9,7 @@ import { Task } from '../../shared/models/task.model';
 import { TaskService } from '../../shared/Services/task.service';
 import { api } from '../../shared/axios';
 import { from } from 'rxjs';
+import { SimpleChanges } from '@angular/core';
 @Component({
   selector: 'app-customer',
   standalone: true,
@@ -80,9 +81,9 @@ export class CustomerComponent implements OnInit {
         //this.loadGlasses();
         //this.filteredUsers = [...this.users];
         this.SeperateCount();
+        this.listCameras();
       }
       ngAfterViewInit(){
-    this.listCameras();
 
   }
    async loadGlasses(){
@@ -114,22 +115,22 @@ export class CustomerComponent implements OnInit {
       
     }
   }
-  onCameraSelect(event: Event){      
+  onCameraSelect(event: Event){  
+    console.log("Camera Selected");    
     this.ShowView=true;
   }
   async listCameras() {
-    if(this.camera_list.length!==0) return;
-    //await navigator.mediaDevices.getUserMedia({ video: true });
-    //navigator.mediaDevices.getUserMedia({video:true});
-    navigator.mediaDevices.enumerateDevices()
-      .then(devices => {
+    try {
+      // Enumerate all media devices
+      const devices = await navigator.mediaDevices.enumerateDevices();
   
-        this.camera_list = devices.filter(device => device.kind === 'videoinput');
-        
-      })
-      .catch(err => console.error('Error listing cameras:', err));
-      console.log(this.camera_list);
-
+      // Filter out video input devices (cameras)
+      this.camera_list = devices.filter(device => device.kind === 'videoinput');
+  
+      console.log('Available cameras:', this.camera_list);
+    } catch (err) {
+      console.error('Error listing cameras:', err);
+    }
   }
   async SeperateCount(){
     let count=this.glasses_List.length;
@@ -163,7 +164,19 @@ export class CustomerComponent implements OnInit {
       }
      
     }
-            
+    ngOnChanges(changes: SimpleChanges): void {
+      //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+      //Add '${implements OnChanges}' to the class.
+      
+      if(changes['selectedType']) {
+        if(this.selectedType === 'Camera')
+        {
+
+        }
+        
+      }
+      
+    }        
     onVideoUploadafter(event: any) {
       const file = event.target.files[0];
       if (!file) return;

@@ -14,27 +14,31 @@ export class RegisterComponent {
   registerForm;
   message = '';
   error = '';
-
+  passwordVisible = false;
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       //name: ['', Validators.required],
       //phone: ['', Validators.required],
       password: ['', Validators.required],
-      password_confirm: ['', Validators.required],
+      //password_confirm: ['', Validators.required],
     });
+  }
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
   }
   login() {
     this.router.navigate(['/login']);
   }
   register() {
     if (this.registerForm.invalid) return;
-    if (this.registerForm.value.password !== this.registerForm.value.password_confirm) {
+
+    // if (this.registerForm.value.password !== this.registerForm.value.password_confirm) {
     
-      this.error = 'Passwords do not match.';
-      this.message = '';
-      return;
-    }
+    //   this.error = 'Passwords do not match.';
+    //   this.message = '';
+    //   return;
+    // }
     this.authService.register(this.registerForm.value).subscribe({
       next: () => {
         this.message = 'Registration successful!';
